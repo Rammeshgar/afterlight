@@ -1,0 +1,79 @@
+/* Native quick-start dock stays outside the scrolling customization panel. */
+.rotation-disclosure{border:1px solid #90aaa43a;border-radius:9px;margin:0 0 20px;background:#172b34}.rotation-disclosure>summary{cursor:pointer;padding:13px 14px;font-size:12px;color:#c9d7c9;min-height:44px}.rotation-disclosure>summary span{float:right;color:#e6bc7f;font:10px/1.7 Consolas,monospace}.rotation-disclosure .rotation-controls{border:0!important;border-top:1px solid #90aaa424!important;border-radius:0;margin:0;background:transparent}
+.desktop-dock{flex-shrink:0;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:8px 16px;padding:16px 24px 13px;background:#172b34;border-top:1px solid #91aba840}
+.desktop-dock strong{display:block;font:18px/1.25 Georgia,serif;color:#f0e1c7}
+.desktop-dock div>span{display:block;font-size:10px;line-height:1.5;color:#a7beb4;margin-top:4px}
+.desktop-dock .desktop-button{margin:0;width:auto;min-height:44px;gap:14px;font-size:12px;font-weight:600}
+.desktop-dock p{grid-column:1/-1;margin:0;color:#a7bbb2;font-size:10px;line-height:1.5}
+.world-card-copy>span{font-size:11px}.world-card-copy small{font-size:8px}.collection-intro p{font-size:12px}.panel-footer p,.panel-footer details{font-size:11px}.panel-footer details{margin-top:12px;line-height:1.6}
+.panel-body{min-height:0}.panel-body>#worlds-gallery{padding-bottom:20px}.world-card{min-height:44px}.close-button{min-width:32px;min-height:32px}
+body.desktop-mode .desktop-dock{display:none!important}
+@media(max-height:620px){.panel-header{padding-top:16px;padding-bottom:14px}.panel-header h2{font-size:25px}.desktop-dock{padding-top:10px;padding-bottom:10px}.desktop-dock p{display:none}.collection-intro{margin-top:0}.panel-body>#worlds-gallery{padding-top:17px}}
+@media(max-width:520px){.desktop-dock{padding:12px 20px;grid-template-columns:1fr}.desktop-dock>div{display:none}.desktop-dock .desktop-button{width:100%;justify-content:space-between}.desktop-dock p{font-size:10px}.world-card-copy>span{font-size:10px}.world-card-copy small{font-size:7px}.rotation-footer{align-items:stretch;flex-direction:column}.rotation-footer button{width:100%}}
+/* Keep the enlarged collection useful on compact and short laptop windows. */
+.panel-header>div,.desktop-dock>div{min-width:0}.panel-header .eyebrow{overflow-wrap:anywhere}.desktop-dock strong{overflow-wrap:anywhere}
+@media(max-height:540px){.panel-header{padding:12px 20px}.panel-header .eyebrow{font-size:7px}.panel-header h2{font-size:23px;margin-top:6px}.collection-nav{padding-top:7px;padding-bottom:7px}.collection-nav button{min-height:34px}.desktop-dock{padding:8px 20px}.desktop-dock .desktop-button{min-height:38px;padding:10px 12px}.desktop-dock div>span{display:none}.desktop-dock strong{font-size:15px}}
+@media(max-width:440px){.panel-header h2{font-size:25px}.collection-nav{padding-left:15px;padding-right:15px}.collection-nav button{font-size:11px;gap:8px}.panel-header{padding-left:17px;padding-right:17px;gap:12px}.panel-body{padding-left:17px;padding-right:17px}.desktop-dock{padding-left:17px;padding-right:17px}}
+
+.lighting-toggle{min-width:76px;padding-inline:10px}
+.lighting-toggle svg{flex:none;width:16px;height:16px}
+.lighting-toggle .lighting-sun, .lighting-toggle[aria-pressed="true"] .lighting-moon{display:none}
+.lighting-toggle[aria-pressed="true"] .lighting-sun{display:block}
+.lighting-bar{flex:none;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 24px;border-bottom:1px solid #90aaa43a;background:#13242e}
+.lighting-bar label{display:grid;gap:3px;font-size:12px}
+.lighting-bar label span{color:#acc1bc;font-size:11px}
+.lighting-bar select{min-height:40px;max-width:57%;padding:5px 10px;border:1px solid #6e8a8e;border-radius:7px;background:#1d333d;color:#f1e4cc;font-size:12px}
+.lighting-bar select:focus-visible{outline-offset:2px}
+.world-image img,.active-world img{object-fit:cover;object-view-box:inset(0 0 50% 0)}
+.daylight .world-image img,.daylight .active-world img{object-view-box:inset(50% 0 0 0)}
+
+body.daylight{
+  color-scheme:light;
+  --day-ink:#203932;
+  --day-muted:#49655a;
+  --day-paper:#e8ead9;
+  --day-raised:#f1ebd7;
+  --day-tint:#dce4d2;
+  --day-line:#8a9c86;
+  --day-accent:#2f6a58;
+  --day-gold:#745326;
+}
+.daylight :is(.settings,.explorer,.toast){color:var(--day-ink);background:var(--day-paper);border-color:var(--day-line);box-shadow:0 16px 48px #243f3a55}
+.daylight :is(.panel-header,.collection-nav,.desktop-dock,.lighting-bar,.rotation-disclosure){color:var(--day-ink);background:var(--day-tint);border-color:var(--day-line)}
+.daylight :is(.collection-intro,.world-card,.segmented,.action-grid button,.wide-button,.select-row select,.lighting-bar select,.close-button){background:var(--day-raised);color:var(--day-ink);border-color:var(--day-line)}
+.daylight :is(.collection-nav button,.collection-filters button,.explore-actions button){background:var(--day-raised);color:var(--day-ink);border-color:var(--day-line)}
+.daylight .rotation-disclosure .rotation-controls{color:var(--day-ink);background:transparent;border-color:var(--day-line)}
+.daylight :is(.collection-nav button,.collection-filters button,.segmented button):hover,
+.daylight :is(.world-card:hover,.world-card[aria-pressed=true],.action-grid button:hover,.wide-button:hover,.explore-actions button:hover,.close-button:hover){border-color:var(--day-accent);background:#dae4cc}
+.daylight .segmented button{color:var(--day-ink)}
+.daylight :is(.collection-nav button,.collection-filters button,.segmented button)[aria-pressed=true],.daylight .desktop-button{background:var(--day-accent);color:#fffbed;border-color:var(--day-accent)}
+.daylight :is(.world-card-copy strong,.collection-intro h3,.world-group-heading h4,.active-world h3,.desktop-dock strong,.explorer h2,.wordmark,.collection-note strong){color:var(--day-ink)}
+.daylight :is(.panel-header .eyebrow,.world-group-heading p,.collection-intro p,.collection-selection p,.active-world p,.world-card-copy>span,.collection-note p,.section-label h3,.section-label>span,.switch-row small,.desktop-note,.range-label,.lighting-bar label span,.desktop-dock div>span,.desktop-dock p,.panel-footer p,.panel-footer details,.explore-detail,.explore-status){color:var(--day-muted)}
+.daylight :is(.collection-filter-status,.world-card-copy small,.range-label output,.rotation-disclosure>summary span,.panel-header h2 span,.panel-footer button,.eyebrow,.group-count){color:var(--day-gold)}
+.daylight :is(.collection-nav button span,.collection-filters button span,.collection-stats strong,.action-grid button span,.explore-actions kbd){color:var(--day-gold)}
+.daylight :is(.collection-nav button,.collection-filters button)[aria-pressed=true] span{color:inherit}
+.daylight :is(.rotation-disclosure>summary,.collection-nav kbd,.bottom-actions kbd){color:var(--day-ink)}
+.daylight .panel-body{scrollbar-color:#718979 var(--day-paper)}
+.daylight .collection-filters button:focus-visible,
+.daylight .world-card:focus-visible{outline-offset:2px}
+.daylight .action-grid button small{color:var(--day-muted)}
+.daylight .world-card-copy>span.world-card-moments,
+.daylight .world-card-moments>span{color:var(--day-accent)}
+.daylight .collection-stats,.daylight .explore-spots{color:var(--day-muted)}
+.daylight input[type=range]{accent-color:var(--day-accent)}
+.daylight :is(button,input,select,summary):focus-visible{outline-color:var(--day-accent)}
+.daylight .intro h1,.daylight .intro p{color:#fff4d9;text-shadow:0 2px 14px #233d39}
+.daylight .intro .eyebrow,.daylight .intro h1 span{color:#ffe8b2;text-shadow:0 1px 7px #294b40}
+.daylight .toolbar :is(.round-button,.scene-button){background:#e8ead9f5;color:var(--day-ink);border-color:#7e9480;box-shadow:0 5px 16px #263e3a33}
+.daylight .toolbar :is(.round-button,.scene-button):hover{background:#fcf1d5;border-color:var(--day-accent)}
+.daylight .toolbar .scene-button kbd{color:var(--day-muted);border-color:#9aa98a}
+.daylight .toolbar .lighting-toggle{color:#66461a;border-color:#9a7d4b}
+.daylight .scene-caption{color:#fff5db;text-shadow:0 1px 4px #20392c,0 0 9px #20392c}
+@media(max-width:440px){
+  .lighting-bar{padding-inline:17px}
+  .lighting-toggle{min-width:42px;padding-inline:8px}
+  #lighting-icon-label{display:none}
+  .toolbar{gap:5px;right:10px}
+  .toolbar .scene-button{gap:5px;padding-inline:8px;white-space:nowrap}
+  .toolbar #open-settings svg{display:none}
+}

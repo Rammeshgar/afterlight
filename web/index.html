@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: blob:; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'none'; object-src 'none'; base-uri 'none'">
+  <title>Afterlight Cinema</title>
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="music.css">
+  <link rel="stylesheet" href="collection.css">
+  <link rel="stylesheet" href="explore.css">
+  <link rel="stylesheet" href="release.css">
+  <script src="seneschal-art.js" defer></script>
+  <script src="seneschal-worlds.js" defer></script>
+  <script src="worlds.js" defer></script>
+  <script src="living-worlds.js" defer></script>
+  <script src="environment.js" defer></script>
+  <script src="cinema.js" defer></script>
+  <script src="scene.js" defer></script>
+  <script src="ui.js" defer></script>
+</head>
+<body>
+  <main id="world" aria-label="Afterlight interactive pixel worlds">
+    <canvas id="scene" width="960" height="540" aria-label="A moonlit canal city with a rooftop studio. Use the scene controls for keyboard-accessible interactions."></canvas>
+    <div id="intro" class="intro" aria-hidden="true"><span class="eyebrow">A SMALL WORLD, STILL AWAKE</span><h1>Afterlight <span>Cinema</span></h1></div>
+    <div class="scene-caption" id="caption" aria-hidden="true"><span class="live-dot"></span><span id="mood-label">MIDNIGHT RAIN</span><span class="caption-rule"></span><span id="local-time"></span></div>
+    <div class="toolbar" id="toolbar" aria-label="Wallpaper controls">
+      <button class="round-button" id="pause" aria-label="Pause animation" aria-pressed="false" title="Pause · Space"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14M16 5v14"/></svg></button>
+      <button class="round-button" id="sound" aria-label="Enable ambient sound" aria-pressed="false" title="Ambient sound · M"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m11 5-6 5H2v4h3l6 5V5ZM16 9l5 6m0-6-5 6"/></svg></button>
+      <button class="scene-button lighting-toggle" id="lighting-toggle" aria-label="Daylight" aria-pressed="false" aria-keyshortcuts="D" title="Switch day or night (D)">
+        <svg class="lighting-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg>
+        <svg class="lighting-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 13A9 9 0 1 1 11 3a7 7 0 0 0 10 10Z"/></svg>
+        <span id="lighting-icon-label" aria-hidden="true">Night</span>
+      </button>
+      <button class="scene-button explore-trigger" id="open-explore" aria-expanded="false" aria-controls="explorer" aria-keyshortcuts="E"><span>Explore</span><kbd>E</kbd></button>
+      <button class="scene-button" id="open-settings" aria-expanded="false" aria-controls="settings" aria-keyshortcuts="S"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 17h16M8 4v6m8 4v6"/></svg><span>Make it yours</span><kbd>S</kbd></button>
+    </div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <div class="scene-hint" id="scene-hint">Try the cat, the studio window, or the water.</div>
+    <section id="explorer" class="explorer" aria-labelledby="explorer-title" hidden>
+      <header><div><span class="eyebrow">SCENE CONTROLS</span><h2 id="explorer-title">Explore Canal City</h2></div><button id="close-explore" class="close-button" aria-label="Close scene explorer">×</button></header>
+      <div id="explore-actions" class="explore-actions">
+        <button id="explore-train" aria-keyshortcuts="1"><kbd>1</kbd><span>Night train</span></button><button id="explore-lantern" aria-keyshortcuts="2"><kbd>2</kbd><span>Release a lantern</span></button><button id="explore-cat" aria-keyshortcuts="3"><kbd>3</kbd><span>Rooftop cat</span></button><button id="explore-meteor" aria-keyshortcuts="4"><kbd>4</kbd><span>Make a wish</span></button><button id="explore-light" aria-keyshortcuts="5"><kbd>5</kbd><span>Studio lights</span></button><button id="explore-water" aria-keyshortcuts="6"><kbd>6</kbd><span>Water ripples</span></button>
+      </div>
+      <div id="explore-extra" class="explore-actions" aria-label="More scene controls">
+        <button id="explore-extra-0" aria-keyshortcuts="7"><kbd>7</kbd><span></span></button>
+        <button id="explore-extra-1" aria-keyshortcuts="8"><kbd>8</kbd><span></span></button>
+        <button id="explore-extra-2" aria-keyshortcuts="9"><kbd>9</kbd><span></span></button>
+      </div>
+      <p id="explore-detail" class="explore-detail">Click an object in the preview or use the numbered controls.</p>
+      <label class="explore-spots" for="show-hotspots"><input id="show-hotspots" type="checkbox"> Show interactive spots</label>
+      <p id="explore-status" role="status">Click an object, choose an action, or press 1–9. No sound unless you enable it.</p>
+    </section>
+  </main>
+  <div class="scrim" id="scrim" hidden></div>
+  <aside id="settings" class="settings" role="dialog" aria-modal="true" aria-labelledby="settings-title" hidden>
+    <header class="panel-header"><div><span class="eyebrow">AFTERLIGHT CINEMA</span><h2 id="settings-title">Somewhere to stay<span>.</span></h2></div><button id="close-settings" class="close-button" aria-label="Close settings">×</button></header>
+    <div class="collection-nav" role="group" aria-label="Settings view"><button id="view-worlds" aria-pressed="true" aria-controls="worlds-gallery">The collection <span id="collection-count">09</span></button><button id="view-customize" aria-pressed="false" aria-controls="customize-panel">Make it yours</button></div>
+    <div class="lighting-bar">
+      <label for="lighting-mode"><strong>Lighting</strong><span>Applies to all worlds</span></label>
+      <select id="lighting-mode"><option value="night">Night</option><option value="day">Day</option><option value="system">Follow Windows</option></select>
+    </div>
+    <div class="panel-body" id="panel-scroll">
+      <section id="worlds-gallery" aria-labelledby="worlds-heading">
+        <div class="collection-intro"><div><span class="eyebrow" id="collection-eyebrow">NINE WORLDS. COUNTLESS LITTLE MOMENTS.</span><h3 id="worlds-heading">Choose your elsewhere.</h3></div><p>Afterlight's quiet escapes, now joined by Seneschal's city lights and distant frontiers. Each world remembers its own atmosphere.</p><div class="collection-stats" aria-label="Collection highlights"><span><strong id="world-total">9</strong> worlds</span><span><strong id="action-total">81</strong> scene actions</span><span>Always <strong>offline</strong></span></div></div>
+        <details class="rotation-disclosure"><summary>Automatic rotation <span id="rotation-summary">Off</span></summary>
+        <section class="rotation-controls" aria-labelledby="rotation-heading">
+          <div class="section-label"><h3 id="rotation-heading">LET THE WORLDS COME TO YOU</h3><span>Automatic rotation</span></div>
+          <label class="switch-row" for="rotate"><span><strong>Rotate wallpapers automatically</strong><small id="rotation-collection-help">Cycle through all nine worlds with their saved appearance.</small></span><input id="rotate" type="checkbox" role="switch" aria-describedby="rotation-help"></label>
+          <label class="select-row" for="rotationMinutes">Change every<select id="rotationMinutes"><option value="1">1 minute</option><option value="5">5 minutes</option><option value="10" selected>10 minutes</option><option value="15">15 minutes</option><option value="30">30 minutes</option><option value="60">1 hour</option></select></label>
+          <label class="switch-row" for="rotationShuffle"><span><strong>Shuffle the order</strong><small>Pick another world without repeating the current one.</small></span><input id="rotationShuffle" type="checkbox" role="switch"></label>
+          <p id="rotation-help" class="desktop-note">Pauses while customizing, exploring, in Stillness, or while animation/the desktop is paused. Manual choices restart the countdown. No missed changes are replayed after sleep.</p>
+          <div class="rotation-footer"><p id="rotation-status" class="desktop-note" aria-live="off">Rotation is off.</p><button id="rotation-next" class="wide-button">Next world now ↗</button></div>
+        </section>
+        </details>
+        <div class="collection-filters" role="group" aria-label="Filter wallpaper collection"><button data-collection="all" aria-pressed="true" aria-controls="world-groups">All worlds <span id="filter-all-count">9</span></button><button data-collection="afterlight" aria-pressed="false" aria-controls="world-groups">Afterlight <span id="filter-afterlight-count">5</span></button><button data-collection="seneschal" aria-pressed="false" aria-controls="world-groups">Seneschal <span id="filter-seneschal-count">4</span></button></div>
+        <div id="world-groups" aria-label="Wallpaper collection"></div>
+        <p id="collection-filter-status" class="collection-filter-status" role="status" aria-live="polite"></p>
+        <div class="collection-selection"><p id="world-selection-status" role="status">Current world: Canal City</p><button id="customize-selected" class="desktop-button">Customize Canal City <span>↗</span></button></div>
+      </section>
+      <div id="customize-panel" hidden>
+      <div class="active-world"><img id="active-world-thumb" src="thumb-city.png" alt="" width="120" height="68"><div><span id="active-world-tag" class="eyebrow">01 / AFTERLIGHT</span><h3 id="active-world-name">Canal City</h3><p id="active-world-description">A sleepless city, passing trains and a warm rooftop studio.</p></div></div>
+      <section id="world-detail" aria-labelledby="world-detail-heading" hidden><div class="section-label"><h3 id="world-detail-heading">00 / THIS WORLD'S DETAILS</h3><span>Saved for this world</span></div>
+        <label class="range-label" for="worldActivity"><span id="world-activity-label">Activity</span><output id="worldActivity-value" for="worldActivity">65%</output></label><input id="worldActivity" type="range" min="0" max="100" value="65">
+        <label class="range-label" for="worldGlow"><span id="world-glow-label">Light warmth</span><output id="worldGlow-value" for="worldGlow">60%</output></label><input id="worldGlow" type="range" min="0" max="100" value="60">
+        <label class="switch-row" for="worldFeature"><span><strong id="world-feature-label">Signature detail</strong><small>Keep this world's signature element in the scene.</small></span><input id="worldFeature" type="checkbox" role="switch" checked></label>
+      </section>
+      <section aria-labelledby="palette-heading"><div class="section-label"><h3 id="palette-heading">Night palette</h3><span>Saved for this world</span></div>
+        <p class="desktop-note" id="night-palette-note" hidden>Your night palette is saved. Select Night to preview it.</p>
+        <div class="palettes" id="night-palettes">
+          <button class="palette-card active" data-palette="nocturne" aria-pressed="true"><span class="palette-art nocturne"><i></i><b></b></span><strong>Nocturne</strong><small>Jade · amber · midnight</small></button>
+          <button class="palette-card" data-palette="ember" aria-pressed="false"><span class="palette-art ember"><i></i><b></b></span><strong>Last light</strong><small>Violet · copper · dusk</small></button>
+          <button class="palette-card" data-palette="sakura" aria-pressed="false"><span class="palette-art sakura"><i></i><b></b></span><strong>Blue reverie</strong><small>Indigo · rose · moonlight</small></button>
+        </div>
+      </section>
+      <section aria-labelledby="weather-heading"><div class="section-label"><h3 id="weather-heading">02 / WHAT THE SKY IS DOING</h3></div>
+        <div class="segmented" role="group" aria-label="Weather"><button data-weather="clear" aria-pressed="false">Clear</button><button data-weather="rain" aria-pressed="true">Rain</button><button data-weather="snow" aria-pressed="false">Snow</button><button data-weather="mist" aria-pressed="false">Mist</button></div>
+        <label class="range-label" for="intensity">Weather intensity <output id="intensity-value" for="intensity">55%</output></label><input id="intensity" type="range" min="0" max="100" value="55">
+        <label class="switch-row" for="daycycle" id="night-cycle"><span><strong>Cycle night palettes</strong><small>Gradually move through the three night palettes.</small></span><input id="daycycle" type="checkbox" role="switch"></label>
+      </section>
+      <section aria-labelledby="life-heading"><div class="section-label"><h3 id="life-heading">03 / A CITY WITH A PULSE</h3></div>
+        <p class="desktop-note" id="action-help">Six distinct interactions in every world. These controls close the menu so you can see the response. Press E for the compact explorer, or 1–6 to play an action. Interactive spots can be revealed in Explore.</p>
+        <div class="action-grid"><button id="train">Send a night train <span>↗</span></button><button id="lantern">Release a lantern <span>↗</span></button><button id="cat">Say hello to the cat <span>↗</span></button><button id="meteor">Make a wish <span>↗</span></button><button id="light">Switch studio lights</button><button id="water">Ripple the canal</button></div>
+        <label class="switch-row" for="windows"><span><strong>Window rhythms</strong><small>Lights change as the city stays awake.</small></span><input id="windows" type="checkbox" role="switch" checked></label>
+        <label class="switch-row" for="parallax"><span><strong>A little perspective</strong><small>Quiet depth as your cursor moves.</small></span><input id="parallax" type="checkbox" role="switch" checked></label>
+      </section>
+      <section aria-labelledby="sound-heading"><div class="section-label"><h3 id="sound-heading">04 / SOMETHING TO LISTEN TO</h3><span>Off until you ask</span></div>
+        <button id="sound-panel" class="wide-button">Enable rain &amp; distant city ambience</button>
+        <label class="range-label" for="volume">Volume <output id="volume-value" for="volume">25%</output></label><input id="volume" type="range" min="0" max="100" value="25">
+      </section>
+      <section aria-labelledby="music-heading"><div class="section-label"><h3 id="music-heading">05 / LET THE WORLD LISTEN</h3><span>Music-reactive light</span></div>
+        <label class="switch-row" for="music-reactive"><span><strong>React to playing music</strong><small>Local PC playback audio. No microphone.</small></span><input id="music-reactive" type="checkbox" role="switch" aria-describedby="music-privacy music-status"></label>
+        <p id="music-status" class="desktop-note" role="status">Not listening</p>
+        <div class="range-label"><span>Actual playback input</span><output id="music-input-value" aria-live="off">0%</output></div>
+        <div class="music-meter" aria-hidden="true"><i id="music-level"></i></div>
+        <p id="music-signal" class="desktop-note" role="status">Audio input is off.</p>
+        <p id="music-privacy" class="desktop-note">Analyses all sound on the default Windows output device, including calls and notifications. Audio is not saved or uploaded. Off whenever the app starts.</p>
+        <label class="range-label" for="musicSensitivity">Sensitivity <output id="musicSensitivity-value" for="musicSensitivity">55%</output></label><input id="musicSensitivity" type="range" min="0" max="100" value="55">
+        <label class="range-label" for="musicStrength">Light effect strength <output id="musicStrength-value" for="musicStrength">40%</output></label><input id="musicStrength" type="range" min="0" max="100" value="40">
+        <label class="switch-row" for="musicSpectrum"><span><strong>Show live spectrum</strong><small>A visible PC AUDIO display. Bars settle when playback stops.</small></span><input id="musicSpectrum" type="checkbox" role="switch" checked></label>
+        <button id="music-reconnect" class="wide-button" disabled aria-describedby="music-routing">Reconnect playback device</button>
+        <p id="music-routing" class="desktop-note">Follows the default Windows multimedia output. If your player uses another device, select the same output in Windows. Reconnect is available while listening is enabled in the Windows app.</p>
+        <button id="music-demo" class="wide-button" aria-pressed="false">Preview the reaction · no audio capture</button>
+        <p class="desktop-note">Bass swells surface lighting and reflections. Midrange brightens fixtures, and highs bring out small highlights. The effect also works with the spectrum hidden. Stillness pauses listening and the effect.</p>
+      </section>
+      <section aria-labelledby="comfort-heading"><div class="section-label"><h3 id="comfort-heading">06 / MAKE YOURSELF COMFORTABLE</h3></div>
+        <label class="select-row" for="quality">Motion quality<select id="quality"><option value="15">Eco · 15 frames/sec</option><option value="30" selected>Balanced · 30 frames/sec</option><option value="60">Silky · 60 frames/sec</option></select></label>
+        <label class="switch-row" for="reduced"><span><strong>Stillness mode</strong><small>Keep the artwork. Stop continuous motion.</small></span><input id="reduced" type="checkbox" role="switch"></label>
+        <label class="switch-row" for="caption-toggle"><span><strong>A tiny clock in the corner</strong></span><input id="caption-toggle" type="checkbox" role="switch" checked></label>
+        <div class="action-grid bottom-actions"><button id="fullscreen">Full screen <kbd>F</kbd></button><button id="export">Save 4K still <span>↗</span></button></div>
+        <button id="desktop" class="desktop-button" hidden>Use as my desktop wallpaper <span>↗</span></button>
+        <p class="desktop-note" id="desktop-note">To use behind your desktop icons, import the included package into Lively Wallpaper. This preview works offline.</p>
+      </section>
+      <footer class="panel-footer"><span class="wordmark">afterlight.</span><p>Version 1.8 · Created by Sadeq Rezai.<br>Drawn in code. No accounts, tracking, or AI calls at runtime.</p><details><summary>Keyboard shortcuts</summary><p>Space: pause · S: settings · E: explore · 1–6: scene actions · W: next world · F: full screen · M: sound · R: weather · N: night palette · D: Day/Night · H: hide controls · Esc: close.</p></details><details><summary>Where are my settings?</summary><p>On the desktop, double-click the Afterlight icon in the Windows notification area (beside the clock; it may be under the ↑ arrow). You can also reopen Afterlight from its desktop or Start menu shortcut. Choose Quit in the tray menu to stop it and reveal your normal Windows wallpaper.</p></details><button id="reset">Reset this world's appearance</button></footer>
+      </div>
+    </div>
+    <footer id="desktop-dock" class="desktop-dock" hidden><div><strong id="desktop-selection">Canal City</strong><span>Primary display · your icons stay on top</span></div><button id="desktop-quick" class="desktop-button">Use as wallpaper <span aria-hidden="true">↗</span></button><p>Reopen Afterlight from its shortcut or the tray icon to change anything.</p></footer>
+  </aside>
+</body>
+</html>

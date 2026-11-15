@@ -1,0 +1,73 @@
+AFTERLIGHT CINEMA 1.8
+Nine cinematic pixel-art worlds for your Windows desktop
+Created by Sadeq Rezai
+
+1. Quit an older running Afterlight Cinema from its tray menu before updating.
+   Run Afterlight-Cinema-Setup-1.8.0.exe. Install for your own Windows account.
+2. Open Afterlight from the desktop or Start menu shortcut.
+3. Choose a world, then choose Use as wallpaper. Quit the original Afterlight
+   from its tray icon first if it is running.
+
+CUSTOMIZE LATER
+Reopen the same shortcut, or double-click the Afterlight notification-area
+icon beside the Windows clock. It may be inside the ^ hidden-icons menu.
+The normal desktop preview returns so you can choose and customize a world.
+Choose Use as wallpaper to put it behind your icons again.
+
+DAY AND NIGHT
+Press D or use the sun/moon button in preview for a quick switch.
+Open Lighting in the collection or customization panel to choose Day, Night,
+or Follow Windows. Lighting applies to all worlds. Each world remembers its
+own weather and night palette. Stillness skips the moving transition.
+
+COMMAND-LINE START
+With Afterlight closed, start AfterlightCinema.exe --wallpaper to reuse your saved
+world and lighting directly on the desktop. Add --lighting=day, --lighting=night,
+or --lighting=system to choose the lighting as it starts.
+
+STOP
+Right-click the Afterlight tray icon and choose Quit. Your saved Windows
+wallpaper is never overwritten. To uninstall, use Windows Settings > Apps >
+Installed apps > Afterlight, or the Uninstall Afterlight Start menu entry.
+Your saved appearance settings are kept when you uninstall.
+
+EXPLORE
+The collection now includes Citylight, City Nocturne, Lunar Relay and Orbital
+Foundry from Seneschal, alongside the five original Afterlight worlds. Each
+world saves its own appearance. Old preferences stay intact after updating.
+Press E to see nine interactions and highlight their objects. Click the numbered buttons
+or press 1-9. Press S for settings, W for the next world, Space to pause.
+Use Save 4K still to export the current artwork without menus.
+
+ROTATE
+Under The collection, enable automatic rotation and pick an interval.
+It counts active viewing time and waits while paused, covered by a full-
+screen window, locked, in Stillness, or while you customize or explore.
+
+MUSIC
+Off by default at every app start. Enable React to playing music in Make
+it yours. It analyses all sound on the default Windows multimedia output,
+including calls and notifications. It never uses a microphone, records
+audio or uploads it. Live PC AUDIO bars should settle when playback stops.
+The visual-preview button is explicitly simulated; it captures no sound.
+
+REQUIREMENTS
+Windows 10/11, 64-bit Intel/AMD (x64); .NET Framework 4.8 and Microsoft Edge
+WebView2 Runtime. Setup checks prerequisites. These Microsoft components
+are already present on many PCs; if absent, follow the official Microsoft
+link shown by Setup. No browser window, Docker, account or AI subscription
+is needed. The animation must remain running to remain your wallpaper.
+
+DISPLAY & POWER
+This release targets your primary display, not independent wallpapers on
+multiple monitors. Balanced uses a 30 FPS target; Eco targets 15 FPS.
+Stillness stops animation. Actual usage varies with the device, resolution
+and chosen effects; 60 FPS is a target, not a guarantee.
+
+The app and installer are not code-signed. Windows may show an unknown-
+publisher or reputation warning. Only install files from a source you trust;
+do not disable Windows security. A SHA256 file identifies an exact download
+but is not proof of a trusted publisher.
+
+No internet is required once prerequisites are installed. See PRIVACY.md,
+RELEASE-NOTES.md and the bundled third-party notices for details.

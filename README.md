@@ -33,4 +33,8 @@ Windows 10 or 11 on x64, .NET Framework 4.8, and the Microsoft Edge WebView2 Run
 
 Scene preferences are stored locally. Music reaction is optional and off at startup. When enabled, it reacts to the default Windows playback device. [Privacy details](PRIVACY.md)
 
-Artwork, interface, and application by Sadeq Rezai. Third-party notices are included with each installer.
+## Build from source
+
+This repository contains the Windows host, both renderers, bundled artwork, and the installer source. [Build and test instructions](BUILDING.md)
+
+Artwork, interface, and application by Sadeq Rezai. [Rights and third-party notices](NOTICE.md)

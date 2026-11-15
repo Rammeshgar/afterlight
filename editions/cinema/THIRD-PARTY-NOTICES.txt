@@ -1,0 +1,28 @@
+Afterlight 1.8 — third-party components
+
+Afterlight artwork, interface and native host: created by Sadeq Rezai.
+This notice does not grant an open-source licence to original Afterlight
+code or artwork. Contact the creator for any reuse beyond the distributed app.
+
+Seneschal pixel-art collection
+Citylight, City Nocturne, Lunar Relay and Orbital Foundry are adapted from
+Sadeq Rezai's Seneschal workspace artwork, with the owner's authorization.
+The adaptation is bundled locally in web/seneschal-art.js and
+web/seneschal-worlds.js; it is artwork only, not the Seneschal application.
+This distribution does not grant a new licence to the author's original
+artwork or other proprietary Afterlight material.
+
+Microsoft Edge WebView2 SDK 1.0.4258.31
+Bundled Microsoft.Web.WebView2.Core.dll, Microsoft.Web.WebView2.WinForms.dll
+and x64 WebView2Loader.dll. Build verifies Microsoft Authenticode signatures.
+Full terms: Microsoft-WebView2-LICENSE.txt
+Additional notices: Microsoft-WebView2-NOTICE.txt
+The separately installed Evergreen WebView2 Runtime is managed by Microsoft.
+
+NAudio.Core and NAudio.Wasapi 2.2.1
+Copyright Mark Heath and contributors. MIT licence.
+Full terms: NAudio-LICENSE.txt
+Build verifies the pinned official NuGet package SHA256 values before extraction.
+
+The application does not bundle Windows, .NET Framework or a web browser.
+The setup program uses Windows/.NET facilities and includes the app payload.

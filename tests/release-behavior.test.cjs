@@ -1,0 +1,23 @@
+'use strict';
+const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
+const load=require('./world-harness.cjs'),h=load(),A=h.A;
+A.pause(true);
+for(let i=0;i<200;i++){A.effect('lantern');A.effect('water',{x:0,y:0});A.effect('meteor');}
+assert.equal(A.diagnostics().lanterns,24,'Paused lantern clicks stay bounded');
+assert.equal(A.diagnostics().ripples,16,'Paused ripple clicks stay bounded');
+assert.equal(h.pending.size,0,'Click spam never unpauses animation');
+A.set({reduced:true});for(let i=0;i<200;i++)A.hostPointer(100,440,true);
+assert.equal(A.diagnostics().ripples,16,'Direct pointer ripples use the same bounded queue');
+assert.equal(h.pending.size,0);
+const read=f=>fs.readFileSync(path.join(__dirname,'..',f),'utf8');
+const host=read('src/Program.cs'),ui=read('web/ui.js'),html=read('web/index.html'),build=read('Build-Afterlight.ps1');
+assert.match(host,/DisplaySettingsChanged\+=DisplayChanged/);assert.match(host,/DisplaySettingsChanged-=DisplayChanged/);
+assert.match(host,/Native\.FillsPrimaryScreen\(Handle\)/,'Fast recovery path checks current display bounds');
+assert.match(ui,/this\.c\.suspend\(\)/,'Muted ambience suspends the audio graph');
+assert.match(ui,/this\.c\.close\(\)/,'Page teardown disposes its audio graph');
+assert.match(ui,/muted=!soundOn\|\|A\.paused\(\)\|\|p\.reduced\|\|document\.hidden\|\|hostPaused/);
+assert.match(html,/id="desktop-quick"/);assert.match(html,/id="desktop-dock"/);
+assert.match(ui,/afterlight\.welcome\.v1/,'One-time onboarding is separate from preference records');
+assert(!build.includes('Project-Desk-Desktop'),'Source builds must not depend on a sibling project');
+for(const source of [host,build,read('Build-Installer.ps1')])assert(source.includes('release.css'),'All allowlists contain new stylesheet');
+console.log('PASS: bounded paused effects, current-primary bounds recovery, ambience suspension/teardown, native quick-start and self-contained build/resource contracts.');
